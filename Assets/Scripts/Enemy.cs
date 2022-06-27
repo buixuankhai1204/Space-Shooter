@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
         float minXScence = -13;
         float maxXScence = 13;
         float minYScence = -4f;
-        float maxYScence = 0;
+        float maxYScence = 6.0f;
 
         if (transform.position.y < -5.0f)
         {
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
 
     }
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         
         if (other.transform.tag == "Player")
