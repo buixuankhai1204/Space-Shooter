@@ -10,15 +10,16 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _Prefabs;
     
-    IEnumerator  Start()
+    void Start()
     {
-        yield return StartCoroutine("SpawnRoute");
+        StartCoroutine("SpawnRoute");
         print("Done " + Time.time);
     }
 
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     IEnumerator SpawnRoute()

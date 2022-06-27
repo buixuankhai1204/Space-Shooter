@@ -2,8 +2,8 @@
   "dependencies": {
     "com.unity.barracuda": "2.0.0",
     "com.unity.burst": "1.6.5",
-    "com.unity.cinemachine": "2.8.4",
-    "com.unity.collab-proxy": "1.15.17",
+    "com.unity.cinemachine": "2.8.6",
+    "com.unity.collab-proxy": "1.15.18",
     "com.unity.connect.share": "4.2.3",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.15",
