@@ -23,8 +23,8 @@ public class Enemy : MonoBehaviour
     void Movement()
     {
 
-        float minXScence = -13;
-        float maxXScence = 13;
+        float minXScence = -9;
+        float maxXScence = 9;
         float minYScence = -4f;
         float maxYScence = 6.0f;
 
@@ -41,18 +41,22 @@ public class Enemy : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        Player PlayerObj = GameObject.Find("Player").GetComponent<Player>();
         if (other.transform.tag == "Player")
         {
-            Player player = other.transform.GetComponent<Player>();
-            if (player != null)
+            if (PlayerObj != null)
             {
-                player.Damage();
+                PlayerObj.Damage();
                 Destroy(gameObject);
             }
         }
-        else if (other.transform.tag == "Laser")
+        else 
         {
+            
+            if (PlayerObj != null)
+            {
+                PlayerObj.UpdateScore();
+            }
             Destroy(gameObject);
             Destroy((other.gameObject));
         }

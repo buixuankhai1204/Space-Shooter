@@ -13,11 +13,12 @@ public class SpawnManager : MonoBehaviour
     private GameObject _EnemyContainer;
     [SerializeField]
     private bool _StopSpawning = false;
+    public GameObject[] _PowerUpPrefabs;
     
     void Start()
     {
         StartCoroutine("SpawnRoute");
-        print("Done " + Time.time);
+        StartCoroutine("SpawnPowerUp");
     }
 
     // Update is called once per frame
@@ -38,9 +39,23 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(5);
         }
     }
-
+    
+    IEnumerator SpawnPowerUp()
+    {
+        while (_StopSpawning == false)
+        {
+            float RandomXPosition = Random.Range(-10, 10);
+            Vector3 ObjPosition = new Vector3(RandomXPosition, 5.8f, 0);
+            int RandomItem = Random.Range(0, 3);
+            Instantiate(_PowerUpPrefabs[RandomItem], ObjPosition, Quaternion.identity );
+            
+            yield return new WaitForSeconds(3);
+        }
+    }
+    
     public void OnDeathPlayer()
     {
         _StopSpawning = true;
     }
+
 }
