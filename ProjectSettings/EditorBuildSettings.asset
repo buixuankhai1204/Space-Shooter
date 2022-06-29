@@ -5,16 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 378da494dc010d443924d445894b4753
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 70cbd427a32378045892ae3b521c6773
   - enabled: 0
-    path: Assets/Karting/Scenes/IntroMenu.unity
-    guid: d29260d8d84c94bd7ac95807b3da99d4
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Karting/Scenes/MainScene.unity
-    guid: 92786e23da2af4a4f8803aaf44c47121
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Karting/Scenes/LoseScene.unity
-    guid: 9c449e01147824b419cda406398fb2e7
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Karting/Scenes/WinScene.unity
-    guid: d6801f2e59f75ee4b919cf5da4e48e3b
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

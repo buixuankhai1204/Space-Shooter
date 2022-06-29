@@ -9,20 +9,40 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _SpeedEnemy = 3.0f;
 
     private bool die = false;
+
+    [SerializeField] private Animator _EnemyAnimator;
+    [SerializeField] private bool IsTranslate = false;
+    private Player PlayerObj;
+    
+    //Audio
+    [SerializeField] private AudioSource _AudioSource;
+    [SerializeField] private AudioClip _AudioClip;
+
     void Start()
     {
+        _EnemyAnimator = GetComponent<Animator>();
+        PlayerObj = GameObject.Find("Player").GetComponent<Player>();
+        _AudioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
+        if (_AudioSource == null)
+        {
+            Debug.LogError("Audio source not working!!!");
+        }
         
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (GetIsTranslate() == false)
+        {
+            Movement();
+        }
     }
 
     void Movement()
     {
-
         float minXScence = -9;
         float maxXScence = 9;
         float minYScence = -4f;
@@ -41,24 +61,41 @@ public class Enemy : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Player PlayerObj = GameObject.Find("Player").GetComponent<Player>();
         if (other.transform.tag == "Player")
         {
             if (PlayerObj != null)
             {
                 PlayerObj.Damage();
-                Destroy(gameObject);
             }
+            _EnemyAnimator.SetTrigger("OnEnemyDeath");
+            _AudioSource.PlayOneShot(_AudioClip);
+            StopTranslate();
+            Destroy(gameObject, 2.8f);
+
         }
-        else 
+        else if(other.transform.tag == "Laser")
         {
             
             if (PlayerObj != null)
             {
                 PlayerObj.UpdateScore();
             }
-            Destroy(gameObject);
-            Destroy((other.gameObject));
+            _EnemyAnimator.SetTrigger("OnEnemyDeath");
+            _AudioSource.PlayOneShot(_AudioClip);
+            StopTranslate();
+            Destroy(gameObject, 2.8f);
+            Destroy(other.gameObject);
         }
+    }
+    
+    void StopTranslate()
+    {
+        transform.Translate(Vector3.down * 0 * Time.deltaTime,Space.World);
+        IsTranslate = true;
+    }
+
+    bool GetIsTranslate()
+    {
+        return IsTranslate;
     }
 }

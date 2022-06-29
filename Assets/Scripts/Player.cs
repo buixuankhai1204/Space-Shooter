@@ -11,25 +11,26 @@ public class Player : MonoBehaviour
     private float _Speed = 3.0f;
 
     [SerializeField] private int _lives = 3;
-
+    [SerializeField] private float _NextRate = 0.0f;
+    [SerializeField] private float _FireRate = 2f;
+    
     [SerializeField] private GameObject _Prefabs;
 
-    [SerializeField]
-    private float _NextRate = 0.0f;
-    [SerializeField]
-    private float _FireRate = 2f;
-
-    [SerializeField]
-    private SpawnManager _spawnManager;
-    [SerializeField]
-    private UiManager _uiManager;
+    [SerializeField] private SpawnManager _spawnManager;
+    [SerializeField] private UiManager _uiManager;
     
-    // Triple shot
+    private GameManager _gameManager;
+    
+    // PowersUp
     [SerializeField] public GameObject TripleShotPrefab;
     [SerializeField] private bool IsTripleShotActive = false;
     [SerializeField] private bool IsSpeedPowerUpActive = false;
     [SerializeField] private bool IsShieldPowerUpActive = false;
     [SerializeField] private GameObject _ShieldVisualizer;
+    
+    //Audio
+    [SerializeField] private AudioSource _AudioSource;
+    [SerializeField] private AudioClip _AudioClip;
 
     private int _Score = 0;
     
@@ -38,7 +39,22 @@ public class Player : MonoBehaviour
     {
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("UiManager").GetComponent<UiManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _AudioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
+        _uiManager.ShowGameOver(false);
+        _uiManager.ShowRestartLevel(false);
 
+        if (_AudioSource == null)
+        {
+            Debug.LogError("Audio source not working!!!");
+        }
+        
+        if (_gameManager == null)
+        {
+            Debug.LogError("Game manager not working!!!");
+
+        }
+        
         if (_uiManager == null)
         {
             Debug.LogError("UI mannager not working!!!");
@@ -46,7 +62,7 @@ public class Player : MonoBehaviour
         
         if (_spawnManager == null)
         {
-            Debug.LogError("spawn mannager not working!!!");
+            Debug.LogError("Spawn mannager not working!!!");
         }
     }
     
@@ -83,17 +99,24 @@ public class Player : MonoBehaviour
             {
                 Vector3 TripleShotPosition = new Vector3(transform.position.x + -0.6384013f, transform.position.y + 1.53f, 0);
                 Instantiate(TripleShotPrefab, TripleShotPosition, Quaternion.identity);
-
             }
             else
             {
                 Instantiate(_Prefabs, PositionOffset, Quaternion.identity);
             }
+            
+            _AudioSource.PlayOneShot(_AudioClip);
+            
         }
     }
 
     public void Damage()
     {
+        if (_lives == 0)
+        {
+            return;
+        }
+        
         if (IsShieldPowerUpActive == true)
         {
             IsShieldPowerUpActive = false;
@@ -105,7 +128,10 @@ public class Player : MonoBehaviour
         if (_lives < 1)
         {
             _spawnManager.OnDeathPlayer();
+            ShowLives();
             ShowGameOver();
+            _gameManager.GameOVer();
+            ShowRestartLevel();
             Destroy(this.gameObject);
         }
     }
@@ -174,5 +200,9 @@ public class Player : MonoBehaviour
         _uiManager.ShowGameOver(true);
     }
 
+    public void ShowRestartLevel()
+    {
+        _uiManager.ShowRestartLevel(true);
+    }
 
 }

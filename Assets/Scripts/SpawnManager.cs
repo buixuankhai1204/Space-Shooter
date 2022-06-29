@@ -14,11 +14,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private bool _StopSpawning = false;
     public GameObject[] _PowerUpPrefabs;
+    [SerializeField] private GameObject _AsteroidPrefabs;
     
     void Start()
     {
         StartCoroutine("SpawnRoute");
         StartCoroutine("SpawnPowerUp");
+        StartCoroutine("SpawnAsteroid");
     }
 
     // Update is called once per frame
@@ -51,6 +53,16 @@ public class SpawnManager : MonoBehaviour
             
             yield return new WaitForSeconds(3);
         }
+    }
+
+    IEnumerator SpawnAsteroid()
+    {
+        while (_StopSpawning == false)
+        {
+            Instantiate(_AsteroidPrefabs, new Vector3(Random.Range(-10, 10), 5.8f, 0), Quaternion.identity);
+            yield return new WaitForSeconds(3);
+        }
+        
     }
     
     public void OnDeathPlayer()
