@@ -70,6 +70,7 @@ public class Enemy : MonoBehaviour
             _EnemyAnimator.SetTrigger("OnEnemyDeath");
             _AudioSource.PlayOneShot(_AudioClip);
             StopTranslate();
+            Destroy(GetComponent<Collider2D>());
             Destroy(gameObject, 2.8f);
 
         }
@@ -83,6 +84,7 @@ public class Enemy : MonoBehaviour
             _EnemyAnimator.SetTrigger("OnEnemyDeath");
             _AudioSource.PlayOneShot(_AudioClip);
             StopTranslate();
+            Destroy(GetComponent<Collider2D>());
             Destroy(gameObject, 2.8f);
             Destroy(other.gameObject);
         }
