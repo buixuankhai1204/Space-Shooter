@@ -48,11 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c5521797c794443ad357054ba89fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SpeedEnemy: 3
-  _EnemyAnimator: {fileID: 0}
-  IsTranslate: 0
-  _AudioSource: {fileID: 0}
-  _AudioClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _speedEnemy: 3
+  _enemyAnimator: {fileID: 0}
+  _laserPrefabs: {fileID: 9125741630989195826, guid: 4431280ffc5756f468f030886b0cba7f,
+    type: 3}
+  _isTranslate: 0
+  _audioSource: {fileID: 0}
+  _audioClip: {fileID: 0}
 --- !u!212 &8815784059920557944
 SpriteRenderer:
   m_ObjectHideFlags: 0

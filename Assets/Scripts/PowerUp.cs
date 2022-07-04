@@ -7,16 +7,16 @@ public class PowerUp : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] private float _Speed = 3.0f;
-    [SerializeField] private int _PowerUpId;
+    [SerializeField] private float _speed = 3.0f;
+    [SerializeField] private int _powerUpId;
     
     //Audio
-    [SerializeField] private AudioSource _AudioSource;
-    [SerializeField] private AudioClip _AudioClip;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioClip;
     void Start()
     {
-        _AudioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
-        if (_AudioSource == null)
+        _audioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
+        if (_audioSource == null)
         {
             Debug.LogError("Audio source not working!!!");
         }
@@ -39,7 +39,7 @@ public class PowerUp : MonoBehaviour
 
     private void DestroyPowerUp()
     {
-        transform.Translate(Vector3.down * _Speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.down * _speed * Time.deltaTime, Space.World);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -50,21 +50,21 @@ public class PowerUp : MonoBehaviour
             Player PlayerObj = Player.GetComponent<Player>();
             if (PlayerObj != null)
             {
-                if (_PowerUpId == 0)
+                if (_powerUpId == 0)
                 {
                     PlayerObj.TripleShotIsActiveRoutine();
                 } 
-                else if (_PowerUpId == 1)
+                else if (_powerUpId == 1)
                 {
                     PlayerObj.SpeedIsActiveRoutine();
                 }
-                else if(_PowerUpId == 2)
+                else if(_powerUpId == 2)
                 {
                     PlayerObj.ShieldIsActiveRoutine();
                 }
                 
                 Destroy(gameObject);
-                _AudioSource.PlayOneShot(_AudioClip);
+                _audioSource.PlayOneShot(_audioClip);
             }
         }
     }

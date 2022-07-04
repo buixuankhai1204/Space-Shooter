@@ -8,13 +8,13 @@ public class SpawnManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private GameObject _EnemyPrefabs;
+    private GameObject _enemyPrefabs;
     [SerializeField]
-    private GameObject _EnemyContainer;
+    private GameObject _enemyContainer;
     [SerializeField]
-    private bool _StopSpawning = false;
-    public GameObject[] _PowerUpPrefabs;
-    [SerializeField] private GameObject _AsteroidPrefabs;
+    private bool _stopSpawning = false;
+    public GameObject[] _powerUpPrefabs;
+    [SerializeField] private GameObject _asteroidPrefabs;
     
     void Start()
     {
@@ -31,12 +31,12 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnRoute()
     {
-        while (_StopSpawning == false)
+        while (_stopSpawning == false)
         {
             float RandomXPosition = Random.Range(-10, 10);
             Vector3 ObjPosition = new Vector3(RandomXPosition, 5.8f, 0);
-            GameObject newObj = Instantiate(_EnemyPrefabs, ObjPosition, quaternion.identity);
-            newObj.transform.parent = _EnemyContainer.transform;
+            GameObject newObj = Instantiate(_enemyPrefabs, ObjPosition, quaternion.identity);
+            newObj.transform.parent = _enemyContainer.transform;
             
             yield return new WaitForSeconds(5);
         }
@@ -44,12 +44,12 @@ public class SpawnManager : MonoBehaviour
     
     IEnumerator SpawnPowerUp()
     {
-        while (_StopSpawning == false)
+        while (_stopSpawning == false)
         {
             float RandomXPosition = Random.Range(-10, 10);
             Vector3 ObjPosition = new Vector3(RandomXPosition, 5.8f, 0);
             int RandomItem = Random.Range(0, 3);
-            Instantiate(_PowerUpPrefabs[RandomItem], ObjPosition, Quaternion.identity );
+            Instantiate(_powerUpPrefabs[RandomItem], ObjPosition, Quaternion.identity );
             
             yield return new WaitForSeconds(3);
         }
@@ -57,9 +57,9 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnAsteroid()
     {
-        while (_StopSpawning == false)
+        while (_stopSpawning == false)
         {
-            Instantiate(_AsteroidPrefabs, new Vector3(Random.Range(-10, 10), 5.8f, 0), Quaternion.identity);
+            Instantiate(_asteroidPrefabs, new Vector3(Random.Range(-10, 10), 5.8f, 0), Quaternion.identity);
             yield return new WaitForSeconds(3);
         }
         
@@ -67,7 +67,7 @@ public class SpawnManager : MonoBehaviour
     
     public void OnDeathPlayer()
     {
-        _StopSpawning = true;
+        _stopSpawning = true;
     }
 
 }

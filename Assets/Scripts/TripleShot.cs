@@ -5,7 +5,7 @@ using UnityEngine;
 public class TripleShot : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private float _Speed = 8.0f;
+    [SerializeField] private float _speed = 8.0f;
     void Start()
     {
         
@@ -20,7 +20,7 @@ public class TripleShot : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(Vector3.up * _Speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.up * _speed * Time.deltaTime, Space.World);
     }
 
     private void DestroyTripleShot()

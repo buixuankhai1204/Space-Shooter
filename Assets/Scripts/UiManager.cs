@@ -7,18 +7,18 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
 
-    [SerializeField] private Text _ScoreText;
+    [SerializeField] private Text _scoreText;
 
-    [SerializeField] private Image LivesImg;
-    [SerializeField] private Sprite[] LiveSprites;
-    [SerializeField] private Text _GameOVer;
-    [SerializeField] private Text _RestartLevel; 
+    [SerializeField] private Image _livesImg;
+    [SerializeField] private Sprite[] _liveSprites;
+    [SerializeField] private Text _gameOVer;
+    [SerializeField] private Text _restartLevel; 
 
     // Start is called before the first frame update
     void Start()
     {
-        _GameOVer.gameObject.SetActive(false);
-        _ScoreText.text = "Score: 0";
+        _gameOVer.gameObject.SetActive(false);
+        _scoreText.text = "Score: 0";
     }
 
     // Update is called once per frame
@@ -28,16 +28,16 @@ public class UiManager : MonoBehaviour
 
 public void ShowScore(int Score)
     {
-        _ScoreText.text = "score: " + Score;
+        _scoreText.text = "score: " + Score;
     }
 
     public void ShowLives(int Lives)
     {
         
-        LivesImg.sprite = LiveSprites[Lives];
+        _livesImg.sprite = _liveSprites[Lives];
         if (Lives < 1)
         {
-            _GameOVer.gameObject.SetActive(true);
+            _gameOVer.gameObject.SetActive(true);
         }
     }
 
@@ -45,7 +45,7 @@ public void ShowScore(int Score)
     {
         if (IsGameOver)
         {
-            _GameOVer.gameObject.SetActive(true);
+            _gameOVer.gameObject.SetActive(true);
             StartCoroutine(GameFlickerRoutine());
         }
     }
@@ -54,16 +54,16 @@ public void ShowScore(int Score)
     {
         while (true)
         {
-            _GameOVer.text = "GAME OVER !!!";
+            _gameOVer.text = "GAME OVER !!!";
             yield return new WaitForSeconds(0.5f);
-            _GameOVer.text = "";
+            _gameOVer.text = "";
             yield return new WaitForSeconds(0.5f);
         }
     }
 
     public void ShowRestartLevel(bool check)
     {
-        _RestartLevel.gameObject.SetActive(check);
+        _restartLevel.gameObject.SetActive(check);
     }
     
 }

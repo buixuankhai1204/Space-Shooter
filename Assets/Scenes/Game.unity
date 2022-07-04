@@ -240,15 +240,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68e049ed63b3d7458c448ac99e9cc72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ScoreText: {fileID: 634579669}
-  LivesImg: {fileID: 966947082}
-  LiveSprites:
+  _scoreText: {fileID: 634579669}
+  _livesImg: {fileID: 966947082}
+  _liveSprites:
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
   - {fileID: 21300000, guid: 80fba5ece7697c44eacc036539c1b552, type: 3}
   - {fileID: 21300000, guid: 482c8e4c0346b704aa5f1760c3c989d5, type: 3}
   - {fileID: 21300000, guid: 9fe6f40efddf0b64fb68a3382b14a4db, type: 3}
-  _GameOVer: {fileID: 802306454}
-  _RestartLevel: {fileID: 417164000}
+  _gameOVer: {fileID: 802306454}
+  _restartLevel: {fileID: 417164000}
 --- !u!1 &409400512 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6531640849039083490, guid: 94520c79d90addd4f91a989a021f0960,
@@ -639,7 +639,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665233563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0, z: 0}
+  m_LocalPosition: {x: -0.04, y: -3.82, z: 0}
   m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -704,7 +704,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 802306452}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -940,15 +940,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a36638856c1a3946834907c58244716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _EnemyPrefabs: {fileID: 1088945825674469567, guid: 50fef4b596ec6404bb7ba126aaaae9fd,
+  _enemyPrefabs: {fileID: 1088945825674469567, guid: 50fef4b596ec6404bb7ba126aaaae9fd,
     type: 3}
-  _EnemyContainer: {fileID: 708922045}
-  _StopSpawning: 0
-  _PowerUpPrefabs:
-  - {fileID: 4020658178784909299, guid: 7964bf64d94ff53429d8079e22053c02, type: 3}
-  - {fileID: 4019500019670544522, guid: 91b40ed0414a40240a8dd644f575452b, type: 3}
+  _enemyContainer: {fileID: 708922045}
+  _stopSpawning: 0
+  _powerUpPrefabs:
   - {fileID: 6146398801257393827, guid: 8f0c02718a46b144ab1fbac56f2aa12b, type: 3}
-  _AsteroidPrefabs: {fileID: 4181574245141946174, guid: add23b2048f7ca94880611009929e40e,
+  - {fileID: 4019500019670544522, guid: 91b40ed0414a40240a8dd644f575452b, type: 3}
+  - {fileID: 4020658178784909299, guid: 7964bf64d94ff53429d8079e22053c02, type: 3}
+  _asteroidPrefabs: {fileID: 4181574245141946174, guid: add23b2048f7ca94880611009929e40e,
     type: 3}
 --- !u!4 &1042751987
 Transform:

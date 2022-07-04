@@ -8,14 +8,14 @@ using Random = UnityEngine.Random;
 public class Asteroid : MonoBehaviour
 {
 
-    [SerializeField] private float _Speed = 3.0f;
-    [SerializeField] private Animator _AsteroidAnimator;
-    [SerializeField] private bool IsTranslate = false;
-    private Player PlayerObj;
+    [SerializeField] private float _speed = 3.0f;
+    [SerializeField] private Animator _asteroidAnimator;
+    [SerializeField] private bool _isTranslate = false;
+    private Player _playerObj;
     
     //Audio
-    [SerializeField] private AudioSource _AudioSource;
-    [SerializeField] private AudioClip _AudioClip;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioClip;
 
 
 
@@ -24,19 +24,19 @@ public class Asteroid : MonoBehaviour
     void Start()
     {
         RotatorAsteroid();
-        PlayerObj = GameObject.Find("Player").GetComponent<Player>();
-        _AudioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
+        _playerObj = GameObject.Find("Player").GetComponent<Player>();
+        _audioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
         
-        if (_AudioSource == null)
+        if (_audioSource == null)
         {
             Debug.LogError("Audio source not working!!!");
         }
         
-        if (PlayerObj == null)
+        if (_playerObj == null)
         {
             Debug.LogError("Game OVer");
         }
-        _AsteroidAnimator = GetComponent<Animator>();
+        _asteroidAnimator = GetComponent<Animator>();
 
     }
 
@@ -59,7 +59,7 @@ public class Asteroid : MonoBehaviour
             
         }
         
-        transform.Translate(Vector3.down * _Speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.down * _speed * Time.deltaTime, Space.World);
     }
 
     public void RotatorAsteroid()
@@ -71,12 +71,12 @@ public class Asteroid : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            if (PlayerObj != null)
+            if (_playerObj != null)
             {
-                PlayerObj.Damage();
+                _playerObj.Damage();
             }
-            _AsteroidAnimator.SetTrigger("OnEnemyDeath");
-            _AudioSource.PlayOneShot(_AudioClip);
+            _asteroidAnimator.SetTrigger("OnEnemyDeath");
+            _audioSource.PlayOneShot(_audioClip);
             StopTranslate();
             Destroy(GetComponent<Collider2D>());
             Destroy(gameObject, 2.8f);
@@ -84,13 +84,13 @@ public class Asteroid : MonoBehaviour
         }
         else if(other.transform.tag == "Laser")
         {
-            if (PlayerObj != null)
+            if (_playerObj != null)
             {
-                PlayerObj.UpdateScore();
+                _playerObj.UpdateScore();
             }
             
-            _AsteroidAnimator.SetTrigger("OnEnemyDeath");
-            _AudioSource.PlayOneShot(_AudioClip);
+            _asteroidAnimator.SetTrigger("OnEnemyDeath");
+            _audioSource.PlayOneShot(_audioClip);
             StopTranslate();
             Destroy(GetComponent<Collider2D>());
             Destroy(gameObject, 2.8f);
@@ -101,11 +101,11 @@ public class Asteroid : MonoBehaviour
     void StopTranslate()
     {
         transform.Translate(Vector3.down * 0 * Time.deltaTime,Space.World);
-        IsTranslate = true;
+        _isTranslate = true;
     }
 
     bool GetIsTranslate()
     {
-        return IsTranslate;
+        return _isTranslate;
     }
 }

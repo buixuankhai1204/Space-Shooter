@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-
-    private float _Speed = 8.0f;
-
-    
+    private float _speed = 8.0f;
+    private bool _isEnemyLaser = false;
     
     // Start is called before the first frame update
     void Start()
@@ -18,13 +16,20 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveUp();
-        destroyLaser();
+        if (_isEnemyLaser)
+        {
+            MoveDown();
+        }
+        else
+        {
+            MoveUp();
+        }
     }
 
-    void destroyLaser()
+    void MoveUp()
     {
-        if (transform.position.y > 6)
+        transform.Translate(Vector3.up * _speed * Time.deltaTime, Space.World);
+        if (transform.position.y > 6f)
         {
             if (transform.parent != null)
             {
@@ -33,8 +38,23 @@ public class Laser : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void MoveUp()
+
+    void MoveDown()
     {
-        transform.Translate(Vector3.up * _Speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.down * _speed * Time.deltaTime, Space.World);
+        if (transform.position.y < -6f)
+        {
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);                                
+            }
+            Destroy(this);
+        }
     }
+
+    public void AssignEnemyLaser()
+    {
+        _isEnemyLaser = true;
+    }
+
 }

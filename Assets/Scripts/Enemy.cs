@@ -6,29 +6,30 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private float _SpeedEnemy = 3.0f;
+    [SerializeField] private float _speedEnemy = 3.0f;
+    private float _timeRate = 3.0f;
+    private float _nextRate = 0.0f;
 
     private bool die = false;
 
-    [SerializeField] private Animator _EnemyAnimator;
-    [SerializeField] private bool IsTranslate = false;
-    private Player PlayerObj;
+    [SerializeField] private Animator _enemyAnimator;
+    [SerializeField] private GameObject _laserPrefabs;
+    [SerializeField] private bool _isTranslate = false;
+    private Player _playerObj;
     
     //Audio
-    [SerializeField] private AudioSource _AudioSource;
-    [SerializeField] private AudioClip _AudioClip;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioClip;
 
     void Start()
     {
-        _EnemyAnimator = GetComponent<Animator>();
-        PlayerObj = GameObject.Find("Player").GetComponent<Player>();
-        _AudioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
-        if (_AudioSource == null)
+        _enemyAnimator = GetComponent<Animator>();
+        _playerObj = GameObject.Find("Player").GetComponent<Player>();
+        _audioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
+        if (_audioSource == null)
         {
             Debug.LogError("Audio source not working!!!");
         }
-        
-        
 
     }
 
@@ -38,6 +39,18 @@ public class Enemy : MonoBehaviour
         if (GetIsTranslate() == false)
         {
             Movement();
+        }
+
+        if (Time.time > _timeRate)
+        {
+            _timeRate = Random.Range(3, 7);
+            _nextRate = Time.time + _timeRate;
+            GameObject enenmyLaser = Instantiate(_laserPrefabs, transform.position, Quaternion.identity);
+            Laser[] lasers = enenmyLaser.GetComponentsInChildren<Laser>();
+            for (int i = 0; i < lasers.Length; i++)
+            {
+                lasers[i].AssignEnemyLaser();
+            }
         }
     }
 
@@ -55,7 +68,7 @@ public class Enemy : MonoBehaviour
             transform.position = ObjPosition;
         }
 
-        transform.Translate(Vector3.down * _SpeedEnemy * Time.deltaTime, Space.Self);
+        transform.Translate(Vector3.down * _speedEnemy * Time.deltaTime, Space.Self);
 
     }
     
@@ -63,12 +76,12 @@ public class Enemy : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            if (PlayerObj != null)
+            if (_playerObj != null)
             {
-                PlayerObj.Damage();
+                _playerObj.Damage();
             }
-            _EnemyAnimator.SetTrigger("OnEnemyDeath");
-            _AudioSource.PlayOneShot(_AudioClip);
+            _enemyAnimator.SetTrigger("OnEnemyDeath");
+            _audioSource.PlayOneShot(_audioClip);
             StopTranslate();
             Destroy(GetComponent<Collider2D>());
             Destroy(gameObject, 2.8f);
@@ -77,12 +90,12 @@ public class Enemy : MonoBehaviour
         else if(other.transform.tag == "Laser")
         {
             
-            if (PlayerObj != null)
+            if (_playerObj != null)
             {
-                PlayerObj.UpdateScore();
+                _playerObj.UpdateScore();
             }
-            _EnemyAnimator.SetTrigger("OnEnemyDeath");
-            _AudioSource.PlayOneShot(_AudioClip);
+            _enemyAnimator.SetTrigger("OnEnemyDeath");
+            _audioSource.PlayOneShot(_audioClip);
             StopTranslate();
             Destroy(GetComponent<Collider2D>());
             Destroy(gameObject, 2.8f);
@@ -93,11 +106,12 @@ public class Enemy : MonoBehaviour
     void StopTranslate()
     {
         transform.Translate(Vector3.down * 0 * Time.deltaTime,Space.World);
-        IsTranslate = true;
+        _isTranslate = true;
     }
 
     bool GetIsTranslate()
     {
-        return IsTranslate;
+        return _isTranslate;
     }
+    
 }
